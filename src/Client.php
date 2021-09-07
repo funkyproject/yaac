@@ -493,11 +493,12 @@ class Client
      *
      * @throws \League\Flysystem\FileExistsException
      * @throws \League\Flysystem\FileNotFoundException
+     * @throws \League\Flysystem\FilesystemException
      */
     protected function loadKeys()
     {
         //Make sure a private key is in place
-        if ($this->getFilesystem()->has($this->getPath('account.pem')) === false) {
+        if ($this->getFilesystem()->fileExists($this->getPath('account.pem')) === false) {
             $this->getFilesystem()->write($this->getPath('account.pem'), Helper::getNewKey());
         }
         $privateKey = $this->getFilesystem()->read($this->getPath('account.pem'));
